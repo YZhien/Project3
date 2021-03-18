@@ -4,12 +4,12 @@
 \alias{my_lm}
 \title{generate a function that fits a linear model in R}
 \usage{
-my_lm(folmula, data)
+my_lm(f, data)
 }
 \arguments{
-\item{data}{input data frame.}
+\item{f}{a \code{formula} class object, similar to lm().}
 
-\item{formula}{a \code{formula} class object, similar to lm().}
+\item{data}{input data frame.}
 }
 \value{
 A \code{table} similar to summary() :
@@ -22,7 +22,7 @@ To create a functiona and this function fits a linear model in R.
 }
 \examples{
 
-my_lm(lifeExp ~ gdpPercap+continent, my_gapminder)
+my_lm(lifeExp ~ gdpPercap, my_gapminder)
 
 
 }

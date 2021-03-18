@@ -2,7 +2,7 @@
 #'
 #' To create a functiona and this function fits a linear model in R.
 #'
-#' @param formula a \code{formula} class object, similar to lm().
+#' @param f a \code{formula} class object, similar to lm().
 #' @param data input data frame.
 #'
 #'
@@ -19,22 +19,22 @@
 #'
 #' @examples
 #'
-#'my_lm(lifeExp ~ gdpPercap+continent, my_gapminder)
+#'my_lm(lifeExp ~ gdpPercap, my_gapminder)
 #'
 #'
 #' @export
 
 
-my_lm <- function(folmula, data) {
+my_lm <- function(f, data) {
 
   # model matrix X
-  model_matrix_x <- model.matrix(folmula, data)
+  model_matrix_x <- model.matrix(f, data)
   # model frame
-  model_frame_x_y <- model.frame(folmula, data)
+  model_frame_x_y <- model.frame(f, data)
   # model response Y
   model_matrix_y <- model.response(model_frame_x_y)
   # model frame object
-  model_frame    <- model.frame(folmula, data)
+  model_frame    <- model.frame(f, data)
 
   beta_bar       <-  solve(t(model_matrix_x) %*% model_matrix_x) %*%
     t(model_matrix_x) %*% model_matrix_y
