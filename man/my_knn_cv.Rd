@@ -23,6 +23,9 @@ and numeric with the cross-validation misclassification error.
 This function cauculated k-Nearest Neighbors Cross-Validation
 }
 \examples{
-my_knn_cv(my_gapminder$lifeExp, my_gapminder$year, 5, 5)
+
+train <- my_gapminder[4]
+cl <- unlist(my_gapminder[1])
+my_knn_cv(train, cl, 5, 5)
 
 }

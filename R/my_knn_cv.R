@@ -10,12 +10,17 @@
 #' @return A list with objects with vector of predicted class for observations
 #'         and numeric with the cross-validation misclassification error.
 #'
-#' @examples
-#' my_knn_cv(my_gapminder$lifeExp, my_gapminder$year, 5, 5)
 #'
 #' @importFrom class knn
 #' @importFrom dplyr select
 #' @importFrom dplyr filter
+#'
+#' @examples
+#'
+#' train <- my_gapminder[4]
+#' cl <- unlist(my_gapminder[1])
+#' my_knn_cv(train, cl, 5, 5)
+#'
 #' @export
 
 
@@ -26,18 +31,19 @@ my_knn_cv <- function(train, cl, k_nn, k_cv) {
   fold_df <- data.frame("x" = train, "y" = cl, "fold" = inds)
   cvv_err_sum <- 0
 
+
   # iterate through data and record the sum of error
   for(i in 1:k_cv) {
     # select train data
     fold_train <- fold_df %>% filter(fold_df$fold != i)
     # get class of train data
-    fold_cl  <- fold_train %>% select(fold_train$y, fold_train$fold)
+    fold_cl  <- fold_train %>% select("y", "fold")
     # get pure train data
     fold_train <- fold_train[, -which(names(fold_train) == "y")]
     # select test data
-    fold_test <- fold_df %>% filter(fold == i)
+    fold_test <- fold_df %>% filter(fold_df$fold == i)
     # get class of test data
-    fold_test_cl  <- fold_test %>% select(y, fold)
+    fold_test_cl  <- fold_test %>% select("y", "fold")
     # get pure test data
     fold_test <- fold_test[, -which(names(fold_test) == "y")]
 
@@ -46,7 +52,7 @@ my_knn_cv <- function(train, cl, k_nn, k_cv) {
     pred <- knn(fold_train, fold_test, fold_cl$y, k_nn)
     # calculate difference by making data frame
     error <- data.frame("true_s" = fold_test_cl$y, "pred" = pred)
-    error <- transform(error, err= ifelse(true_s==pred, 0, 1))
+    error <- transform(error, "err" = ifelse(error$true_s==pred, 0, 1))
     cv_error <- sum(error$err) / length(error$true_s)
     # sum the accumulated error
     cvv_err_sum <- cv_error + cvv_err_sum
