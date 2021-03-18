@@ -10,6 +10,12 @@ test_that("non-sutable input throws error", {
   expect_error(my_t.test(my_gapminder$lifeExp, alternative = "twd", mu = "ii"))
   expect_error(my_t.test("yyy", alternative = "two.sided", mu = "ii"))
   expect_error(my_t.test("my", alternative = "twded", mu = "ii"))
+  expect_error(my_t.test(TRUE, alternative = "two.sided", mu = "ii"))
+  expect_error(my_t.test("my", alternative = TRUE, mu = "ii"))
+  expect_error(my_t.test(TRUE, alternative = "two.sided", mu = "ii"))
+  expect_error(my_t.test("my", alternative = TRUE, mu = TRUE))
+  expect_error(my_t.test("my", alternative = TRUE, mu = 'T'))
+
 
 
 
