@@ -29,14 +29,6 @@
 
 
 
-# Function: a one sample t-test in R
-# Input   : a a numeric vector of data
-#           a character string specifying the alternative hypothesis
-#           a number indicating the null hypothesis value of the mean
-# Output  : the numeric test statistic
-#           the degrees of freedom
-#           the value of the parameter alternative
-#           the numeric p-value
 my_t.test <- function(x, alternative, mu) {
   # if any input is not correct class, through exception
   if (class(x)!="numeric") {
