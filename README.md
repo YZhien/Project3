@@ -8,7 +8,11 @@ The goal of Project3 is to ...
 
 ## Installation
 
-You can install the released version of Project3 from [CRAN](https://CRAN.R-project.org) with:
+You can install the Demo package using the following line:
+``` r
+devtools::install_github("YZhien/final", build_vignette = TRUE, build_opts = c())
+
+```
 
 ``` r
 install.packages("Project3")
