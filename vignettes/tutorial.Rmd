@@ -3,7 +3,7 @@ title: "Project 3: Project3 Tutorial"
 author: "Zhien Yu"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Porject3 Tutorial}
+  %\VignetteIndexEntry{Project3 Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
