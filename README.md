@@ -1,7 +1,7 @@
 # Project3
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/YZhien/Project3/workflows/R-CMD-check/badge.svg)](https://github.com/YZhien/Project3/actions)
+[![R-CMD-check](https://github.com/YZhien/final/workflows/R-CMD-check/badge.svg)](https://github.com/YZhien/final/actions)
 <!-- badges: end -->
 
 The goal of Project3 is to ...
@@ -13,4 +13,5 @@ You can install the released version of Project3 from [CRAN](https://CRAN.R-proj
 ``` r
 install.packages("Project3")
 ```
+
 
