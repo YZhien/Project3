@@ -38,6 +38,14 @@
 #           the value of the parameter alternative
 #           the numeric p-value
 my_t.test <- function(x, alternative, mu) {
+  # if any input is not correct class, through exception
+  if (class(x)!="numeric") {
+    stop()
+  }
+  if (class(mu)!="numeric") {
+    stop()
+  }
+
   # calculate size of vector
   n <- length(x)
   # calculate sample mean
@@ -61,14 +69,20 @@ my_t.test <- function(x, alternative, mu) {
     pt(statisticTTest, df)
   } else if(alternative == "greater"){
     pt(statisticTTest, df, lower.tail = FALSE)
+  } else {
+    stop()
   }
+
+
   # alternative hypothesis
   h_a <- if(alternative == "two.sided") {
     c("The true mean is not equals to", mu)
   } else if(alternative == "less") {
     c("The true mean is less than", mu)
-  } else {
+  } else if(alternative == "greater"){
     c("The true mean is greater than", mu)
+  } else {
+    stop()
   }
   # summary the output
   result <- list("test_stat"   = statisticTTest,
