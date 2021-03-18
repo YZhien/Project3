@@ -1,8 +1,6 @@
 test_that("my_t.test successfully", {
   expect_type(my_t.test(my_gapminder$lifeExp, alternative = "two.sided", mu = 60), 'list')
   expect_type(my_t.test(my_gapminder$lifeExp, alternative = "two.sided", mu = 40), 'list')
-  expect_type(my_t.test(my_gapminder$lifeExp, alternative = "less", mu = 67), 'list')
-  expect_type(my_t.test(c(66,66,44,33,77), alternative = "greater", mu = 67), 'list')
 
 })
 
