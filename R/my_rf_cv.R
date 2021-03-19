@@ -13,8 +13,9 @@
 #' @keywords prediction
 #'
 #' @importFrom dplyr filter
-#' @importFrom stats predit
-#' @importFrom randomForest ?randomForest
+#' @importFrom stats predict
+#' @importFrom randomForest randomForest
+#'
 #' @examples
 #'
 #'my_rf_cv(1)
