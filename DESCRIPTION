@@ -27,4 +27,5 @@ Imports:
     magrittr,
     stats,
     ggplot2,
-    randomForest
+    randomForest,
+    palmerpenguins

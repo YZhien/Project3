@@ -29,6 +29,9 @@ devtools::install_github("YZhien/final", build_vignette = TRUE, build_opts = c()
 ```{r setup}
 library(Project3)
 library(ggplot2)
+library(dplyr)
+library(palmerpenguins)
+
 ```
 
 ```{r}

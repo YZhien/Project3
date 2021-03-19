@@ -2,15 +2,17 @@
 % Please edit documentation in R/my_rf_cv.R
 \name{my_rf_cv}
 \alias{my_rf_cv}
-\title{generate a random forest cross-validation}
+\title{generate a random forest cross-validation for penguins}
 \usage{
-my_rf_cv(k)
+my_rf_cv(k, data_pen)
 }
 \arguments{
 \item{k}{a number for folds}
+
+\item{data_pen}{data for penguins}
 }
 \value{
-A \a numeric with the cross-validation error
+A numeric with the cross-validation error
 }
 \description{
 we will predict output body_mass_g using covariates bill_length_mm,
@@ -18,7 +20,7 @@ bill_depth_mm, and flipper_length_mm.
 }
 \examples{
 
-my_rf_cv(1)
+my_rf_cv(5, my_penguins)
 
 
 }
