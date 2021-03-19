@@ -182,7 +182,7 @@ for (i in c(1:30)) {
 #make dataframe
 x2_df <- data.frame("x" = c(1:30), "y" <-x2)
 x5_df <- data.frame("x" = c(1:30), y <-x5)
-x10_df <- data.frame("x" = c(1:30), y <-x5)
+x10_df <- data.frame("x" = c(1:30), y <-x10)
 #plot
 ggplot(data = x2_df,aes(x , y )) +
   geom_boxplot() +
