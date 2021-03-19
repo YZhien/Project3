@@ -1,4 +1,4 @@
-test_that("my_knn_cv works", {
+test_that("my_lm works", {
   expect_type(my_lm(lifeExp ~ gdpPercap, my_gapminder), 'double')
 })
 

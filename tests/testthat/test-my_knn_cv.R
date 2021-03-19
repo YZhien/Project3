@@ -1,4 +1,4 @@
-test_that("my_knn_cv works", {
+test_that("my_rf_cv works", {
   expect_type(my_knn_cv(my_gapminder[4],unlist(my_gapminder[1]), 5, 5), 'list')
 })
 
