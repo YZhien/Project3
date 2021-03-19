@@ -26,3 +26,5 @@ my_lm(lifeExp ~ gdpPercap, my_gapminder)
 
 
 }
+\keyword{inference}
+\keyword{prediction}

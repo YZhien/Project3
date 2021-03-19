@@ -29,3 +29,4 @@ cl <- unlist(my_gapminder[1])
 my_knn_cv(train, cl, 5, 5)
 
 }
+\keyword{prediction}

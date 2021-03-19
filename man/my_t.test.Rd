@@ -31,3 +31,4 @@ This function cauculated for a one sample t-test.
 my_t.test(my_gapminder$lifeExp, alternative = "two.sided", mu = 60)
 
 }
+\keyword{inference}

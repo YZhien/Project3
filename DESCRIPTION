@@ -26,4 +26,5 @@ Imports:
     tibble,
     magrittr,
     stats,
-    ggplot2
+    ggplot2,
+    randomForest
