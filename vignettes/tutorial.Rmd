@@ -15,8 +15,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-Package Project 3 has 4 functions. 
-1) "my_t.test", 2) "my_lm", 3)"my_knn_cv", 4)"my_rf_cv"
+This package Project 3 include 4 functions that are useful for statistic.
+Package Project 4 functions:
+1) "my_t.test", this calculate the one sample t test for you.
+2) "my_lm", This generate a relationship between sets in same data.
+3)"my_knn_cv", This gives you the k-Nearest Neighbors Cross-Validation.
+4)"my_rf_cv".
 This package should be installed by code:
 ```{r, eval=FALSE}
 devtools::install_github("YZhien/final", build_vignette = TRUE, build_opts = c())
@@ -24,6 +28,7 @@ devtools::install_github("YZhien/final", build_vignette = TRUE, build_opts = c()
 
 ```{r setup}
 library(Project3)
+library(ggplot2)
 ```
 
 ```{r}
@@ -33,7 +38,7 @@ lifeExp_num <- my_gapminder$lifeExp
 #                          H1 :u < 60
 my_t.test(lifeExp_num, "less", 60)
 ```
-Using a = 0.05, we successfuly reject the null hypothesis and accept the alternative hypothesis since p value is smaller than 0.05. Thus mean of life expectation is less than 60.
+Using a = 0.05, we successfully reject the null hypothesis and accept the alternative hypothesis since p value 0.046 is smaller than 0.05. sufficient evidence for the alternative hypothesis. We can conclude from the result that the true mean is less than 60.
 
 ```{r}
 # get our data for my_t.test
@@ -42,7 +47,7 @@ lifeExp_num <- my_gapminder$lifeExp
 #                          H1 :u > 60
 my_t.test(lifeExp_num, "greater", 60)
 ```
-Using a = 0.05, we fail to reject the null hypothesis since p value is larger than 0.05. Thus, Mean of life expectation is less than 60.
+Using a = 0.05, we fail to reject the null hypothesis since p value 0.9533856 is larger than 0.05. There is no sufficient evidence for the alternative hypothesis.
 
 ```{r}
 # get our data for my_t.test
@@ -51,5 +56,101 @@ lifeExp_num <- my_gapminder$lifeExp
 #                          H1 :u != 60
 my_t.test(lifeExp_num, "two.sided", 60)
 ```
-Using a = 0.05, we fail to reject the null hypothesis since p value is larger than 0.05. Thus, Mean of life expectation is less than 60.
+Using a = 0.05, we fail to reject the null hypothesis since p value of 0.09322877 is larger than 0.05. There is no sufficient evidence for the alternative hypothesis.
 
+```{r}
+# generate a regression using gdpPrecap and continent to 
+# approch lifeExp for data of my_gapminder
+my_result <- my_lm(lifeExp ~ gdpPercap+continent, my_gapminder)
+my_result
+```
+For the coefficient of gdpPercap, the estimate is 4.452704e-04. This is the slop between gdpPercap and life expectation. This is a small but positive number. This the correlation of gdpPercap and life expectations is positively correlated. The stdandard error of gdpPercap is 2.349795e-05. This measure the average amount of the difference of true and the estimate. This is not a big value. t value of gdpPercap is 18.9. This measures the how many standard deviations that the coefficient estimate is away from 0. When it get bigger, the relationship between life Expectation and pdpPercap is stronger. Pr(>|t|) of gdpPercap is 8.552893e-73, this is a probability of get value bigger than or equal to t valus. 
+Pr(>|t|) for gdpPercap, the p value, is 8.552893e-73. This is a super small number. It means that the probability of getting number more extreme than t is super small. let the significance level be 0.05. Pr(>|t|) for gdpPercap is much smaller than 0.05. Thus, there is a evidence to reject the null hypothesis and to conclude that there is a relationship betweern gdpPercap and life expectation.
+```{r}
+# create the B matrix
+# getting the matrix of the estimates value 
+my_estimates <- as.matrix(my_result[,"Estimate"])
+
+# fitting data into matrix to create x matrix
+x_mat <- model.matrix(lifeExp ~ gdpPercap + continent,
+                      my_gapminder)
+
+# matrix multiplication to get yhat 
+mod_fits <- x_mat %*% my_estimates
+# make plot
+my_df <- data.frame(actual = my_gapminder$lifeExp, fitted = mod_fits)
+ggplot(my_df, aes(x = fitted, y = actual)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
+  theme_bw(base_size = 15) +
+  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+As we can see on the graph, the model is good. Since the points are clustered around the fitted line. 
+```{r}
+# remove rows with any column with NA
+penguins_clean <- na.omit(my_penguins)
+# select the training data
+train_data <- penguins_clean %>% 
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+# predict using knn from 1 to 10 with kcv of 5
+knn_5 <- my_knn_cv(train_data, penguins_clean$species, 5, 5)
+knn_4 <- my_knn_cv(train_data, penguins_clean$species, 4, 5)
+knn_3 <- my_knn_cv(train_data, penguins_clean$species, 3, 5)
+knn_1 <- my_knn_cv(train_data, penguins_clean$species, 1, 5)
+knn_2 <- my_knn_cv(train_data, penguins_clean$species, 2, 5)
+knn_6 <- my_knn_cv(train_data, penguins_clean$species, 6, 5)
+knn_7 <- my_knn_cv(train_data, penguins_clean$species, 7, 5)
+knn_8 <- my_knn_cv(train_data, penguins_clean$species, 8, 5)
+knn_9 <- my_knn_cv(train_data, penguins_clean$species, 9, 5)
+knn_10 <- my_knn_cv(train_data, penguins_clean$species, 10, 5)
+
+# make error table
+err <- matrix(NA, nrow = 1, ncol = 10)
+err[1,1] <- knn_1[[2]]
+err[1,2] <- knn_2[[2]]
+err[1,3] <- knn_3[[2]]
+err[1,4] <- knn_4[[2]]
+err[1,5] <- knn_5[[2]]
+err[1,6] <- knn_6[[2]]
+err[1,7] <- knn_7[[2]]
+err[1,8] <- knn_8[[2]]
+err[1,9] <- knn_9[[2]]
+err[1,10] <- knn_10[[2]]
+err
+
+# compare set error using data frame
+error_df <- data.frame("real" = penguins_clean$species, "knn1" = knn_1[[1]],
+                       "knn2" = knn_2[[1]], "knn3" = knn_3[[1]],
+                       "knn4" = knn_4[[1]], "knn5" = knn_5[[1]],
+                       "knn6" = knn_6[[1]], "knn7" = knn_7[[1]],
+                       "knn8" = knn_8[[1]], "knn9" = knn_9[[1]],
+                       "knn10" = knn_10[[1]])
+error_df <- transform(error_df, err_1 = ifelse(real==knn1, 0, 1))
+error_df <- transform(error_df, err_2 = ifelse(real==knn2, 0, 1))
+error_df <- transform(error_df, err_3 = ifelse(real==knn3, 0, 1))
+error_df <- transform(error_df, err_4 = ifelse(real==knn4, 0, 1))
+error_df <- transform(error_df, err_5 = ifelse(real==knn5, 0, 1))
+error_df <- transform(error_df, err_6 = ifelse(real==knn6, 0, 1))
+error_df <- transform(error_df, err_7 = ifelse(real==knn7, 0, 1))
+error_df <- transform(error_df, err_8 = ifelse(real==knn8, 0, 1))
+error_df <- transform(error_df, err_9 = ifelse(real==knn9, 0, 1))
+error_df <- transform(error_df, err_10 = ifelse(real==knn10, 0, 1))
+set_err_1 <- sum(error_df$err_1)
+set_err_2 <- sum(error_df$err_2)
+set_err_3 <- sum(error_df$err_3)
+set_err_4 <- sum(error_df$err_4)
+set_err_5 <- sum(error_df$err_5)
+set_err_6 <- sum(error_df$err_6)
+set_err_7 <- sum(error_df$err_7)
+set_err_8 <- sum(error_df$err_8)
+set_err_9 <- sum(error_df$err_9)
+set_err_10 <- sum(error_df$err_10)
+set_err <- c(set_err_1, set_err_2, set_err_3, set_err_4, set_err_5,
+            set_err_6, set_err_7, set_err_8, set_err_9, set_err_10 )
+set_err/length(error_df$err_2)
+```
+If only choose the mode base on CV error I will choose knn =1 since it has the smallest error.
+For me, I will choose knn=5. 
+Cross-validation split data into different folder and predict every set with the rest of sets. k-Nearest Neighbour Classification use the k nearst naighbours to train and test. Thus knn=1 is kind of cheating. knn-5 also has a small error and would not cause to much tims since only using 5 nuighbours. Thus, I will choose knn = 5.

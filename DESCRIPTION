@@ -25,4 +25,5 @@ Imports:
     dplyr,
     tibble,
     magrittr,
-    stats
+    stats,
+    ggplot2

@@ -15,6 +15,7 @@
 #'        \code{alternative}:the value of the parameter \code{alternative}
 #'        \code{p_val}:the numeric p-value
 #'
+#' @keywords inference
 #'
 #' @importFrom stats pt
 #' @importFrom stats sd

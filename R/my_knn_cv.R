@@ -9,7 +9,7 @@
 #'
 #' @return A list with objects with vector of predicted class for observations
 #'         and numeric with the cross-validation misclassification error.
-#'
+#' @keywords prediction
 #'
 #' @importFrom class knn
 #' @importFrom dplyr select

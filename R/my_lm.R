@@ -11,7 +11,8 @@
 #'   \code{Estimate}, \code{Std. Error}, \code{t value},
 #'   and \code{Pr(>|t|)}.
 #'
-#'
+#' @keywords inference
+#' @keywords prediction
 #'
 #' @importFrom stats model.matrix
 #' @importFrom stats model.response
