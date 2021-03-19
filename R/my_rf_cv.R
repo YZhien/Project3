@@ -29,6 +29,9 @@
 
 
 my_rf_cv <- function(k, data_pen) {
+  if (class(k)!="numeric") {
+    stop()
+  }
   data_p <- data_pen
   # remove rows with any column with NA
   penguins_clean <- na.omit(data_p)

@@ -4,9 +4,9 @@ test_that("my_knn_cv works", {
 })
 
 test_that("non-suitable input for parameters throws error", {
-  expect_error(my_rf_cv(1, my_penguins))
-  expect_error(my_rf_cv(1, "my"))
-  expect_error(my_rf_cv(1, 000))
+  expect_error(my_rf_cv("1", my_penguins))
+  expect_error(my_rf_cv("1", "my"))
+  expect_error(my_rf_cv("1", 000))
 
 
 
