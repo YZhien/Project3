@@ -162,9 +162,58 @@ Cross-validation split data into different folder and predict every set with the
 x2 <- c()
 x5 <- c()
 x10 <- c()
-for (k in c(2,5,10)) {
+#For each of the 30
+# iterations, store the CV estimated MSE.
+for (i in c(1:30)) {
+ x2[i] <- my_rf_cv(2, my_penguins)
+ }
   
+for (i in c(1:30)) {
+ x5[i] <- my_rf_cv(5, my_penguins)
+ }
   
-}
+for (i in c(1:30)) {
+ x10[i] <- my_rf_cv(10, my_penguins)
+ }
+
 
 ```
+```{r, warning=FALSE}
+#make dataframe
+x2_df <- data.frame("x" = c(1:30), "y" <-x2)
+x5_df <- data.frame("x" = c(1:30), y <-x5)
+x10_df <- data.frame("x" = c(1:30), y <-x5)
+#plot
+ggplot(data = x2_df,aes(x , y )) +
+  geom_boxplot() +
+  labs(x = "x", y = "error", title = "k=2")
+
+ggplot(data = x5_df,aes(x , y )) +
+  geom_boxplot() +
+  labs(x = "x", y = "error", title = "k=5")
+  
+ggplot(data = x10_df,aes(x=x, y=y ,group_by(10,20))) +
+  geom_boxplot() +
+  labs(x = "x", y = "error", title = "k=10")
+
+```
+
+
+```{r}
+#calculate mean
+mean_x2 <- mean(x2)
+mean_x5 <- mean(x5)
+mean_x10 <- mean(x10)
+#calculate sd
+sd_x2 <- sd(x2)
+sd_x5 <- sd(x5)
+sd_x10 <- sd(x10)
+ta <- matrix(c( mean_x2, sd_x2, mean_x5, sd_x5,  mean_x10, sd_x10), byrow = TRUE, nrow = 3, ncol = 2)
+# give names
+colnames(ta) <- c("mean", "Std. Error")
+rownames(ta) <- c(2,5,10)
+ta_table <- as.table(ta)
+#print table
+ta_table
+```
+We could find out that they have similar mean but similar k would have larger Std. Error, smaller k is more dispersed.
