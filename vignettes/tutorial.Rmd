@@ -157,3 +157,14 @@ set_err/length(error_df$err_2)
 If only choose the mode base on CV error I will choose knn =1 since it has the smallest error.
 For me, I will choose knn=5. 
 Cross-validation split data into different folder and predict every set with the rest of sets. k-Nearest Neighbour Classification use the k nearst naighbours to train and test. Thus knn=1 is kind of cheating. knn-5 also has a small error and would not cause to much tims since only using 5 nuighbours. Thus, I will choose knn = 5.
+```{r}
+# creat new vectors
+x2 <- c()
+x5 <- c()
+x10 <- c()
+for (k in c(2,5,10)) {
+  
+  
+}
+
+```
