@@ -25,6 +25,12 @@
 
 
 my_knn_cv <- function(train, cl, k_nn, k_cv) {
+  if (class(k_nn)!="numeric") {
+    stop()
+  }
+  if (class(k_cv)!="numeric") {
+    stop()
+  }
   # split data into k_nn folds
   n <- nrow(train)
   inds <- sample(rep(1:k_cv, length = n))
